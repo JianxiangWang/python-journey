@@ -37,7 +37,6 @@ class Solution:
         def dfs(nodes, depth, comb, res):
             if depth > k:
                 return
-
             if depth == k:
                 res.append(comb)
 

@@ -30,6 +30,25 @@ class Solution(object):
 
         s = str(x)
         n = len(s)
+        i, j = 0, n - 1
+        while i <= j:
+            if s[i] == s[j]:
+                i += 1
+                j -= 1
+            else:
+                return False
+        return True
+
+    def isPalindrome2(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x < 0:
+            return False
+
+        s = str(x)
+        n = len(s)
 
         if (n % 2) == 0:
             i, j = n // 2 - 1, n // 2
@@ -45,6 +64,4 @@ class Solution(object):
 
 
 if __name__ == '__main__':
-    print(Solution().isPalindrome(100))
-
-
+    print(Solution().isPalindrome(1))

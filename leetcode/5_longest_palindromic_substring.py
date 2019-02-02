@@ -10,6 +10,67 @@ Authors: Wang Jianxiang (wangjianxiang01@baidu.com)
 
 
 class Solution:
+
+    def longestPalindrome_brute_force(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if not s:
+            return s
+
+        def is_palindrome(string):
+            i, j = 0, len(string) - 1
+            while i <= j:
+                if string[i] == string[j]:
+                    i += 1
+                    j -= 1
+                else:
+                    return False
+            return True
+
+        n = len(s)
+        ans = ""
+        for i in range(n):
+            for j in range(i, n):
+                sub_string = s[i: j + 1]
+                if is_palindrome(sub_string):
+                    if not ans or (len(sub_string) > len(ans)):
+                        ans = sub_string
+        return ans
+
+    def longestPalindrome_DP(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+
+        """
+        1. j - i <= 1:
+            if s[i] == s[j]: dp[i][j] = True
+            
+        2. j - i > 1:
+            dp[i][j] = True if s[i] == s[j] and dp[i+1][j-1] else False. 
+        
+        """
+
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        ans = ""
+        for i in range(n)[::-1]:
+            for j in range(i, n):
+                if j - i <= 1:
+                    if s[i] == s[j]:
+                        dp[i][j] = True
+                        if not ans or (j - i + 1) > len(ans):
+                            ans = s[i: j + 1]
+                else:
+                    if s[i] == s[j] and dp[i+1][j-1]:
+                        dp[i][j] = True
+                        if not ans or (j - i + 1) > len(ans):
+                            ans = s[i: j + 1]
+        return ans
+
     def longestPalindrome(self, s):
         """
         :type s: str
@@ -63,4 +124,4 @@ class Solution:
 
 
 if __name__ == '__main__':
-    print(Solution().longestPalindrome2("xabay"))
+    print(Solution().longestPalindrome_DP("bdweaadb"))

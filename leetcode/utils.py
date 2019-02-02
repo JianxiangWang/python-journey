@@ -14,6 +14,9 @@ class ListNode:
         self.val = x
         self.next = None
 
+    def __cmp__(self, other):
+        return self.val < other.val
+
 
 def build_linked_list_from_list(lst):
     dummy = ListNode(None)

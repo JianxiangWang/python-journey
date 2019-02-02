@@ -55,6 +55,29 @@ class Solution:
         if root is None:
             return 0
 
+        def dfs(node, comb, ans):
+            if not node:
+                return
+            if sum(comb) == s:
+                ans.append(1)
+            dfs(node.left, comb + [node.val], ans)
+            dfs(node.right, comb + [node.val], ans)
+
+        ans = []
+        dfs(root, [], ans)
+        res = sum(ans)
+        return res + self.pathSum(root.left, s) + self.pathSum(root.right, s)
+
+
+    def pathSum2(self, root, s):
+        """
+        :type root: TreeNode
+        :type s: int
+        :rtype: int
+        """
+        if root is None:
+            return 0
+
         def dfs(node, s):
             res = 0
             if node is None:

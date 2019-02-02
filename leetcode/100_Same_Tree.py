@@ -40,17 +40,10 @@ class Solution:
         :type q: TreeNode
         :rtype: bool
         """
-
-        if p is None and q is None:
+        if not p and not q:
             return True
 
-        if p is None and q is not None:
+        if (not p and q) or (p and not q):
             return False
 
-        if p is not None and q is None:
-            return False
-
-        if q.val == p.val and self.isSameTree(p.right, q.right) and self.isSameTree(q.left, p.left):
-            return True
-        else:
-            return False
+        return q.val == p.val and self.isSameTree(p.right, q.right) and self.isSameTree(q.left, p.left)

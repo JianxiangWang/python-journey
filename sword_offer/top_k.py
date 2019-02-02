@@ -10,6 +10,24 @@ Authors: Wang Jianxiang (wangjianxiang01@baidu.com)
 import heapq
 
 
+class Solution:
+    def topK(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        heap = []
+        for num in nums:
+            if len(heap) < k:
+                heapq.heappush(heap, num)
+            else:
+                if num > heap[0]:
+                    _ = heapq.heappop(heap)
+                    heapq.heappush(heap, num)
+        return [heapq.heappop(heap) for _ in range(len(heap))][::-1]
+
+
 def top_k_in_sequence(s, k):
     heap = []
     for i, x in enumerate(s):
@@ -20,6 +38,8 @@ def top_k_in_sequence(s, k):
             if x > smallest:
                 heapq.heapreplace(heap, x)
     return[heapq.heappop(heap) for _ in range(len(heap))][::-1]
+
+
 
 
 if __name__ == '__main__':

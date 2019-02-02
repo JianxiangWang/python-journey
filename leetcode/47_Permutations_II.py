@@ -23,8 +23,30 @@ Output:
 
 """
 
+
 class Solution:
     def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+
+        def dfs(nodes, comb, ans):
+            if not nodes:
+                ans.append(comb)
+                return
+
+            prev = None
+            for i, node in enumerate(nodes):
+                if node != prev:
+                    dfs(nodes[:i] + nodes[i+1:], comb + [node], ans)
+                    prev = node
+        ans = []
+        nums = sorted(nums)
+        dfs(nums, [], ans)
+        return ans
+
+    def permuteUnique_2(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
